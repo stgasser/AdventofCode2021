@@ -6,13 +6,7 @@ def parse_input(filename: str):
 
 
 def part1(depths):
-    past = depths[0]
-    cnt = 0
-    for cur in depths[1:]:
-        if cur > past:
-            cnt += 1
-        past = cur
-    return cnt
+    return (depths[:-1] < depths[1:]).sum()
 
 
 def part2(depths):
