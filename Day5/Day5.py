@@ -16,28 +16,15 @@ def part1(lines):
     for start, end in lines:
         if (start == end).sum() != 1:
             continue
-        pts = [tuple(start)]
-        cur = start.copy()
-        vel = (end - start)
-        vel[vel != 0] = vel[vel != 0] / abs(vel[vel != 0])
-        while np.any(cur != end):
-            cur += vel
-            pts.append(tuple(cur))
-        cnt.update(pts)
+        # the rounding is necessary as there is strange float behaviour going on 183 -> 183.9999999999994 -> 185
+        cnt.update(tuple(np.round(pt).astype(int)) for pt in np.linspace(start, end, num=abs(end - start).max() + 1))
     return sum(cnt[p] >= 2 for p in cnt)
 
 
 def part2(lines):
     cnt = Counter()
     for start, end in lines:
-        pts = [tuple(start)]
-        cur = start.copy()
-        vel = (end - start)
-        vel[vel != 0] = vel[vel != 0] / abs(vel[vel != 0])
-        while np.any(cur != end):
-            cur += vel
-            pts.append(tuple(cur))
-        cnt.update(pts)
+        cnt.update(tuple(np.round(pt).astype(int)) for pt in np.linspace(start, end, num=abs(end - start).max() + 1))
     return sum(cnt[p] >= 2 for p in cnt)
 
 
